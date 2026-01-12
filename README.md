@@ -1,2 +1,4 @@
 # Eunoia-
-Eunoia is a calm, reflective digital journaling space designed to help users capture daily thoughts, reflect on past experiences, and visualize future goals. The platform priorities privacy, simplicity, and emotional well-being by storing entries locally on the user’s device, ensuring a safe and personal writing experience
+Eunoia is a thoughtfully designed personal wellbeing web application that goes beyond traditional journaling. It is a calm, distraction-free digital space created to help individuals pause, reflect, plan, and focus in a more intentional and emotionally mindful way.
+
+Unlike productivity tools that prioritize speed and output, Eunoia centers on presence, self-awareness, and gentle structure. It integrates reflective practices with light planning and focus tools, supporting both the emotional and practical aspects of daily life.
