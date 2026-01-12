@@ -1,0 +1,127 @@
+/* =========================
+   Base Reset
+========================= */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f8f6f1; /* soft cream */
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: #2f3e2f;
+  line-height: 1.6;
+}
+
+/* =========================
+   Main Container
+========================= */
+.entry-container {
+  max-width: 700px;
+  margin: 60px auto;
+  padding: 30px 26px;
+}
+
+/* =========================
+   Headings & Text
+========================= */
+h1 {
+  font-weight: 500;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+p {
+  color: #5f6f5f;
+  font-size: 15px;
+  margin-bottom: 32px;
+}
+
+/* =========================
+   Question Blocks
+========================= */
+.question-box {
+  margin-bottom: 30px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+/* =========================
+   Inputs
+========================= */
+textarea,
+select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #d8dfd3;
+  font-size: 14px;
+  font-family: inherit;
+  background-color: #ffffff;
+  color: #2f3e2f;
+}
+
+textarea {
+  min-height: 90px;
+  resize: none;
+}
+
+/* Focus state */
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #8fa98f;
+  box-shadow: 0 0 0 2px rgba(143, 169, 143, 0.15);
+}
+
+/* Placeholder text */
+textarea::placeholder {
+  color: #9aa79a;
+}
+
+/* =========================
+   Button
+========================= */
+button {
+  background-color: #8fa98f;
+  color: #ffffff;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 22px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+button:hover {
+  background-color: #7a967a;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* =========================
+   Responsive (Mobile)
+========================= */
+@media (max-width: 600px) {
+  .entry-container {
+    margin: 30px auto;
+    padding: 24px 18px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+}

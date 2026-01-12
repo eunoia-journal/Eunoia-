@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Eunoia – Weekly Reflection</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  background:#fff9e6;
+  font-family:'Segoe UI', sans-serif;
+  color:#2f3e2f;
+}
+
+.container{
+  max-width:720px;
+  margin:90px auto;
+  padding:24px;
+  text-align:center;
+}
+
+h1{
+  font-family:Georgia, serif;
+  font-weight:400;
+  animation:fadeIn 1s ease;
+}
+
+.sub{
+  color:#6b7b6b;
+  margin-bottom:40px;
+  animation:fadeIn 1.5s ease;
+}
+
+/* graph */
+.graph{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  height:160px;
+  margin-bottom:30px;
+}
+
+.bar{
+  width:36px;
+  border-radius:18px;
+  background:#eee;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  animation:grow 0.9s ease forwards;
+}
+
+.bar span{
+  font-size:12px;
+  margin-bottom:-22px;
+}
+
+/* states */
+.none{height:30px; background:#e0e0e0;}
+.show{height:60px; background:#fff0b3;}
+.partial{height:100px; background:#bfe3c6;}
+.full{height:140px; background:#7fbf9a;}
+
+.message{
+  font-size:16px;
+  color:#4f6f4f;
+  margin-top:20px;
+  animation:fadeIn 2s ease;
+}
+
+button{
+  margin-top:30px;
+  padding:10px 24px;
+  border:none;
+  border-radius:24px;
+  background:#b8d8c2;
+  cursor:pointer;
+}
+
+@keyframes grow{
+  from{height:0}
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(6px)}
+  to{opacity:1; transform:none}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>This week</h1>
+  <p class="sub">You don’t need perfect days — just honest ones.</p>
+
+  <div class="graph" id="graph"></div>
+
+  <p class="message" id="msg"></p>
+
+  <button onclick="history.back()">Back to calendar</button>
+</div>
+
+<script>
+function dayKey(d){
+  return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
+}
+
+const graph = document.getElementById("graph");
+const msg = document.getElementById("msg");
+
+let showedUp = 0;
+
+for(let i=6; i>=0; i--){
+  const d = new Date();
+  d.setDate(d.getDate()-i);
+  const data = JSON.parse(localStorage.getItem(dayKey(d)));
+
+  let cls="none";
+  if(data){
+    showedUp++;
+    const done = [data.c1,data.c2,data.c3,data.c4,data.c5]
+      .filter(Boolean).length;
+
+    if(done >= 3) cls="full";
+    else if(done >= 1) cls="partial";
+    else cls="show";
+  }
+
+  const bar = document.createElement("div");
+  bar.className = `bar ${cls}`;
+  bar.innerHTML =
+    `<span>${d.toLocaleString("default",{weekday:"short"})}</span>`;
+
+  graph.appendChild(bar);
+}
+
+msg.textContent =
+  showedUp >= 5
+    ? `You showed up ${showedUp} days. That’s real consistency 🌱`
+    : showedUp >= 3
+      ? `You showed up ${showedUp} days. Keep going gently 🌿`
+      : `This week was heavy. Next week is a fresh start 🌸`;
+</script>
+
+</body>
+</html>

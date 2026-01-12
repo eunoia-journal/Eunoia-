@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Eunoia – Calendar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="calendar.css">
+</head>
+
+<body>
+
+<header class="top-bar">
+  <h1 class="logo">Eunoia</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="calendar.html" class="active">Calendar</a>
+  </nav>
+</header>
+
+<main class="calendar-container">
+
+  <div class="calendar-header">
+    <button id="prevMonth">‹</button>
+
+    <h2 id="monthLabel"></h2>
+
+    <div class="calendar-actions">
+      <button id="weeklyBtn">Weekly reflection</button>
+      <button id="nextMonth">›</button>
+    </div>
+  </div>
+
+  <div class="calendar-grid" id="calendarGrid"></div>
+
+</main>
+
+<script>
+/* ---------- HELPERS ---------- */
+function key(y,m,d){ return `${y}-${m}-${d}`; }
+
+/* ---------- DATE ---------- */
+const today = new Date();
+let current = new Date(today.getFullYear(), today.getMonth(), 1);
+
+/* ---------- ELEMENTS ---------- */
+const grid = document.getElementById("calendarGrid");
+const monthLabel = document.getElementById("monthLabel");
+
+/* ---------- RENDER CALENDAR ---------- */
+function renderCalendar(){
+  grid.innerHTML = "";
+  const y = current.getFullYear();
+  const m = current.getMonth() + 1;
+  const days = new Date(y, m, 0).getDate();
+
+  monthLabel.textContent =
+    current.toLocaleString("default",{month:"long",year:"numeric"});
+
+  for(let d=1; d<=days; d++){
+    const cell = document.createElement("div");
+    cell.className = "day";
+
+    const dateKey = key(y,m,d);
+    const data = JSON.parse(localStorage.getItem(dateKey)) || {};
+
+    let tasksHTML = "";
+    ["t1","t2","t3"].forEach((t,i)=>{
+      if(data[t]){
+        const done = data[`c${i+1}`] ? "done" : "";
+        tasksHTML += `<div class="task ${done}">${data[t]}</div>`;
+      }
+    });
+
+    cell.innerHTML = `
+      <div class="date">${d}</div>
+      <div class="tasks">${tasksHTML}</div>
+    `;
+
+    cell.onclick = () => {
+      window.location.href = `day.html?day=${dateKey}`;
+    };
+
+    grid.appendChild(cell);
+  }
+}
+
+/* ---------- MONTH NAV ---------- */
+document.getElementById("prevMonth").onclick = ()=>{
+  current.setMonth(current.getMonth()-1);
+  renderCalendar();
+};
+
+document.getElementById("nextMonth").onclick = ()=>{
+  current.setMonth(current.getMonth()+1);
+  renderCalendar();
+};
+
+/* ---------- WEEKLY BUTTON ---------- */
+document.getElementById("weeklyBtn").onclick = ()=>{
+  window.location.href = "weekly.html";
+};
+
+/* ---------- AUTO SHOW ON SUNDAY ---------- */
+(function autoWeekly(){
+  const today = new Date();
+  const isSunday = today.getDay() === 0; // Sunday
+  const weekKey = `weekly-${today.getFullYear()}-${today.getMonth()}`;
+
+  if(isSunday && !localStorage.getItem(weekKey)){
+    localStorage.setItem(weekKey,"shown");
+    setTimeout(()=>{
+      window.location.href = "weekly.html";
+    }, 800);
+  }
+})();
+
+/* ---------- INIT ---------- */
+renderCalendar();
+</script>
+
+</body>
+</html>

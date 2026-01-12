@@ -1,0 +1,357 @@
+/* ===== GOOGLE FONT ===== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+* {
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ===== BODY BACKGROUND ===== */
+body {
+  margin: 0;
+  background: #FBF3EA;
+}
+
+/* ===== HEADER ===== */
+header {
+  background: #f7dfe3;
+  padding: 22px 0;
+}
+
+.header-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.logo img {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+}
+
+.logo strong {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.3rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #1f2a44;
+}
+
+/* ===== MAIN APP CONTAINER ===== */
+.app-container {
+  max-width: 900px;
+  width: 100%;
+  margin: 40px auto;
+  padding: 30px;
+}
+
+/* ===== PROGRESS BAR ===== */
+.progress {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.step {
+  width: 30px;
+  height: 6px;
+  background: #e0e3ff;
+  border-radius: 10px;
+}
+
+.step.active {
+  background: #3d9e5a;
+}
+
+/* ===== HEADINGS ===== */
+h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 600;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: #2b2b2b;
+}
+
+.subtitle {
+  color: #1c825d;
+  margin-bottom: 25px;
+  font-size: 15px;
+}
+
+/* ===== FORM ===== */
+.form {
+  display: flex;
+  flex-direction: column;
+ 
+}
+
+/* ===== FIELD BOX ===== */
+.field-box {
+  background: #ffffff;
+  font-family: 'Inter', sans-serif;
+  padding: 22px;
+  border-radius: 22px;
+  margin-bottom: 18px;
+  box-shadow: 0 12px 30px rgba(47, 93, 80, 0.12);
+}
+
+.field-box label {
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  color: #555;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.field-box input {
+  width: 100%;
+  font-family:'Inter', sans-serif ;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-size: 15px;
+  background: #fff;
+}
+
+.field-box input:focus {
+  outline: none;
+  border-color: #9aa6ff;
+}
+
+/* ===== PRIMARY BUTTON ===== */
+.btn-primary {
+  display: inline-block;
+  padding: 14px 36px;
+  border-radius: 30px;
+  background: #2F5D50;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  text-align: center;
+  margin: 20px auto 0;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 159, 102, 0.4);
+}
+
+/* ===== NAV BUTTONS ===== */
+.btn-secondary {
+  padding: 14px 28px;
+  border-radius: 30px;
+  background: #E8EAF6;
+  color: #333;
+  text-decoration: none;
+  font-size: 16px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+
+.btn-secondary {
+  flex: 1;
+  text-align: center;
+  padding: 14px;
+  border-radius: 16px;
+  background: #eef0ff;
+  color: #333;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.btn-secondary:hover {
+  background: #e0e3ff;
+}
+
+/* ===== STICKERS ===== */
+#stickers {
+  display: flex;
+  gap: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.sticker {
+  padding: 6px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.sticker:hover {
+  background: #f1f2ff;
+}
+
+/* ===== SAFE WORDS IMAGE SECTION ===== */
+.safe-image-box {
+  width: 100%;
+  max-width: 420px;
+  height: 300px;
+  margin-top: 20px;
+  background-image: url("Love\ everything.png");
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.safe-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.safe-overlay p {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  line-height: 1.5;
+}
+
+.safe-subtext {
+  font-size: 14px;
+  color: #666;
+}
+
+/* ===== MOBILE OPTIMIZATION ===== */
+@media (max-width: 600px) {
+  .app-container {
+    padding: 20px 15px;
+    margin: 20px auto;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .nav-buttons {
+    flex-direction: column;
+  }
+
+  .header-inner {
+    padding: 0 20px;
+  }
+}
+/* ===== MOBILE RESPONSIVE FIX ===== */
+@media (max-width: 768px) {
+
+  /* Header container */
+  header {
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    text-align: center;
+  }
+
+  /* Logo section */
+  .logo {
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  /* Navigation links */
+  nav {
+    display: none; /* hide desktop menu on mobile */
+  }
+
+  /* Quote text */
+  .quote {
+    font-size: 1.8rem;
+    padding: 20px;
+    text-align: center;
+  }
+
+  /* Welcome box */
+  .welcome-box {
+    width: 90%;
+    margin: 20px auto;
+    padding: 25px;
+    border-radius: 25px;
+  }
+  
+
+
+}/* ===== ORGANIC SVG BACKGROUND ===== */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+}
+
+.bg svg {
+  width: 100%;
+  height: 100%;
+}
+/* ===== ORGANIC BACKGROUND ===== */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+}
+
+.bg svg {
+  width: 100%;
+  height: 100%;
+}
+/* ===== NOTEBOOK SLIDE TRANSITION ===== */
+
+.notebook {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.page {
+  position: absolute;
+  inset: 0;
+  padding: 40px;
+  transition: transform 0.8s ease-in-out;
+}
+
+/* Cover page (first view) */
+.cover {
+  z-index: 2;
+  transform: translateX(0);
+}
+
+/* Journal page (hidden initially) */
+.journal {
+  z-index: 1;
+  transform: translateX(100%);
+}
+
+/* Animation states */
+.cover.slide-out {
+  transform: translateX(-100%);
+}
+
+.journal.slide-in {
+  transform: translateX(0);
+}
+
+

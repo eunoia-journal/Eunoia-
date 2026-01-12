@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Future – Entry</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="future-entry.css">
+
+
+  <style>
+    body {
+      margin: 0;
+      background-color: #f8f6f1;
+      font-family: 'Segoe UI', sans-serif;
+      color: #2f3e2f;
+    }
+
+    .entry-container {
+      max-width: 700px;
+      margin: 60px auto;
+      padding: 30px;
+    }
+
+    h1 {
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #5f6f5f;
+      margin-bottom: 30px;
+    }
+
+    .question-box {
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    textarea, select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #d8dfd3;
+      font-size: 14px;
+      background-color: #ffffff;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: none;
+    }
+
+    button {
+      background-color: #8fa98f;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 20px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #7a967a;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="entry-container">
+
+    <h1>Before we look ahead…</h1>
+    <p>Take a moment. There is no right answer.</p>
+
+    <div class="question-box">
+      <label>What do you want this year to feel like?</label>
+      <textarea id="feeling" placeholder="Calm, stable, hopeful, lighter…"></textarea>
+    </div>
+
+    <div class="question-box">
+      <label>Which part of your life needs the most care right now?</label>
+      <select id="focus">
+        <option value="">Select one</option>
+        <option>Mind</option>
+        <option>Body</option>
+        <option>Work</option>
+        <option>Relationships</option>
+        <option>Self</option>
+        <option>Everything</option>
+      </select>
+    </div>
+
+    <div class="question-box">
+      <label>If this year went gently well, what would be different?</label>
+      <textarea id="change" placeholder="No pressure. Just imagine."></textarea>
+    </div>
+
+    <button id="continueBtn">Continue</button>
+
+  </div>
+
+  <script>
+    // 🔒 If already completed, skip this page
+    if (localStorage.getItem("hasCompletedFutureEntry") === "true") {
+      window.location.href = "vision-board.html";
+    }
+
+    document.getElementById("continueBtn").addEventListener("click", () => {
+      const feeling = document.getElementById("feeling").value.trim();
+      const focus = document.getElementById("focus").value;
+      const change = document.getElementById("change").value.trim();
+
+      // Require at least ONE answer (gentle validation)
+      if (!feeling && !focus && !change) {
+        alert("You can answer just one question. Take your time.");
+        return;
+      }
+
+      const answers = {
+        feeling,
+        focus,
+        change,
+        savedAt: new Date().toISOString()
+      };
+
+      localStorage.setItem("futureEntryAnswers", JSON.stringify(answers));
+      localStorage.setItem("hasCompletedFutureEntry", "true");
+
+      window.location.href = "vision-board.html";
+    });
+  </script>
+
+</body>
+</html>

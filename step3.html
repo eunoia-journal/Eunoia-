@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gentle Journal – Step 3</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- ORGANIC BACKGROUND -->
+  <div class="bg">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <path d="M0,150 C200,300 400,100 650,220 C900,350 1100,150 1440,260 L1440,0 L0,0 Z"
+            fill="#E6EEDB"/>
+      <path d="M0,750 C300,600 600,850 900,720 C1200,600 1350,780 1440,720 L1440,900 L0,900 Z"
+            fill="#C9DDB6"/>
+    </svg>
+  </div>
+
+  <div class="app-container">
+
+  <!-- Progress -->
+  <div class="progress">
+    <span class="step active"></span>
+    <span class="step active"></span>
+    <span class="step active"></span>
+  </div>
+
+  <!-- Header -->
+  <h1>A little about your heart</h1>
+  <p class="subtitle">Step 3 of 3</p>
+
+  <form id="step3Form" class="form">
+
+    <div class="field-box">
+      <label>Who are the people closest to your heart?</label>
+      <input type="text" placeholder="Family, friends, someone special..." required />
+    </div>
+
+    <div class="field-box">
+      <label>What little things bring you joy?</label>
+      <input type="text" placeholder="Nature, silence, music, smiles..." required />
+    </div>
+
+    <div class="field-box">
+      <label>How do you usually show love?</label>
+      <input type="text" placeholder="Care, words, time, support..." required />
+    </div>
+
+    <div class="nav-buttons">
+      <a href="step2.html" class="btn-secondary">Back</a>
+      <button type="submit" class="btn-primary">Finish & Enter Journal</button>
+    </div>
+
+  </form>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("step3Form");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault(); // Prevent reload
+
+    // Save Step3 answers
+    const inputs = form.querySelectorAll("input");
+    const step3Data = {
+      people: inputs[0].value,
+      joy: inputs[1].value,
+      love: inputs[2].value
+    };
+    localStorage.setItem("step3", JSON.stringify(step3Data));
+
+    // Mark onboarding completed
+    localStorage.setItem("onboardingCompleted", "true");
+
+    // Redirect to journal page
+    window.location.href = "journalpage.html";
+  });
+});
+</script>
+<button id="finishOnboarding" class="btn-primary">Enter My Journal</button>
+
+<script>
+  document.getElementById("finishOnboarding").addEventListener("click", () => {
+    localStorage.setItem("onboardingCompleted", "true");
+    window.location.href = "journalpage.html";
+  });
+</script>
+
+
+</body>
+</html>

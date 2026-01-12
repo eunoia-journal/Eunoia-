@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Eunoia – Plan Your Day</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+  --bg:#f6f0fa;
+  --card:#ffffff;
+  --lav:#e7dbf5;
+  --lav-dark:#bfa7e6;
+  --green:#cfe6d8;
+  --text:#2f2f2f;
+  --muted:#6b6b6b;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:'Segoe UI', sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* subtle E background */
+body::before{
+  content:"E";
+  position:fixed;
+  font-size:320px;
+  color:rgba(191,167,230,0.08);
+  bottom:-40px;
+  right:-40px;
+  font-family:Georgia, serif;
+  z-index:-1;
+}
+
+.container{
+  max-width:1100px;
+  margin:60px auto;
+  padding:24px;
+}
+
+.header{
+  text-align:center;
+  margin-bottom:40px;
+}
+
+.header h1{
+  font-family:'Brush Script MT', cursive;
+  font-size:42px;
+  font-weight:400;
+}
+
+.header p{
+  color:var(--muted);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:28px;
+}
+
+.card{
+  background:var(--card);
+  border-radius:26px;
+  padding:26px;
+  box-shadow:0 12px 30px rgba(0,0,0,0.08);
+}
+
+.section-title{
+  font-size:13px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:#777;
+  margin-bottom:16px;
+}
+
+input, textarea{
+  width:100%;
+  border:1px solid #ddd;
+  border-radius:14px;
+  padding:14px;
+  margin-bottom:14px;
+  font-family:inherit;
+}
+
+textarea{resize:none}
+
+.todo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:12px;
+}
+
+.todo input[type="checkbox"]{
+  width:auto;
+}
+
+.easy{
+  background:var(--green);
+  padding:14px;
+  border-radius:16px;
+}
+
+/* mood */
+.mood{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:16px;
+}
+
+.mood-item{
+  font-size:26px;
+  cursor:pointer;
+  padding:10px;
+  border-radius:50%;
+  transition:0.2s;
+}
+
+.mood-item:hover{
+  background:rgba(191,167,230,0.25);
+}
+
+.mood-item.selected{
+  background:var(--lav-dark);
+  box-shadow:0 0 0 3px rgba(191,167,230,0.4);
+}
+
+.closure{
+  background:linear-gradient(135deg,var(--lav),#f3ecff);
+  border-radius:26px;
+  padding:26px;
+  margin-top:28px;
+}
+
+.footer{
+  text-align:center;
+  margin-top:40px;
+}
+
+button{
+  background:var(--lav-dark);
+  color:white;
+  border:none;
+  padding:14px 36px;
+  border-radius:30px;
+  font-size:16px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>Plan your day</h1>
+    <p>Do less. Do it gently.</p>
+  </div>
+
+  <div class="grid">
+
+    <!-- TODO -->
+    <div class="card">
+      <div class="section-title">To-do list</div>
+
+      <div class="todo"><input type="checkbox" id="c1"><input id="t1" placeholder="Task 1"></div>
+      <div class="todo"><input type="checkbox" id="c2"><input id="t2" placeholder="Task 2"></div>
+      <div class="todo"><input type="checkbox" id="c3"><input id="t3" placeholder="Task 3"></div>
+      <div class="todo"><input type="checkbox" id="c4"><input id="t4" placeholder="Task 4"></div>
+      <div class="todo"><input type="checkbox" id="c5"><input id="t5" placeholder="Task 5"></div>
+
+      <div class="easy">
+        <strong>Easy win</strong>
+        <input id="easy" placeholder="One small thing I can finish easily">
+      </div>
+    </div>
+
+    <!-- DIRECTION -->
+    <div class="card">
+      <div class="section-title">Direction</div>
+      <textarea id="goal" rows="3" placeholder="Main goal I am working toward"></textarea>
+      <textarea id="today" rows="3" placeholder="What I am working on today"></textarea>
+    </div>
+
+  </div>
+
+  <!-- SELF CARE -->
+  <div class="card" style="margin-top:28px;">
+    <div class="section-title">Self care check-in</div>
+
+    <div class="mood" id="moodBox">
+      <div class="mood-item" data-mood="low">😞</div>
+      <div class="mood-item" data-mood="okay">😐</div>
+      <div class="mood-item" data-mood="good">🙂</div>
+      <div class="mood-item" data-mood="calm">😌</div>
+      <div class="mood-item" data-mood="energised">🌸</div>
+    </div>
+
+    <div class="todo"><input type="checkbox" id="sleep"> Slept well</div>
+    <div class="todo"><input type="checkbox" id="move"> Moved my body</div>
+    <div class="todo"><input type="checkbox" id="skin"> Took care of my skin</div>
+
+    <textarea id="stress" rows="2" placeholder="What is stressing me today?"></textarea>
+  </div>
+
+  <!-- CLOSURE -->
+  <div class="closure">
+    <div class="section-title">Closure</div>
+    <textarea id="grateful" rows="2" placeholder="What am I grateful for?"></textarea>
+    <textarea id="proud" rows="2" placeholder="What am I proud of today?"></textarea>
+  </div>
+
+  <div class="footer">
+    <button onclick="saveDay()">Save & return to calendar</button>
+    <p style="color:#6b6b6b;margin-top:12px;">Showing up counts 🌱</p>
+  </div>
+
+</div>
+
+<script>
+/* get date key */
+const params = new URLSearchParams(window.location.search);
+const dayKey = params.get("day");
+
+/* mood logic */
+let selectedMood = null;
+
+document.querySelectorAll(".mood-item").forEach(item=>{
+  item.onclick=()=>{
+    document.querySelectorAll(".mood-item")
+      .forEach(i=>i.classList.remove("selected"));
+    item.classList.add("selected");
+    selectedMood = item.dataset.mood;
+  };
+});
+
+/* load saved data */
+const saved = JSON.parse(localStorage.getItem(dayKey)) || {};
+
+if(saved){
+  t1.value=saved.t1||""; t2.value=saved.t2||""; t3.value=saved.t3||"";
+  t4.value=saved.t4||""; t5.value=saved.t5||"";
+  easy.value=saved.easy||"";
+  goal.value=saved.goal||""; today.value=saved.today||"";
+  stress.value=saved.stress||"";
+  grateful.value=saved.grateful||""; proud.value=saved.proud||"";
+
+  c1.checked=saved.c1||false; c2.checked=saved.c2||false;
+  c3.checked=saved.c3||false; c4.checked=saved.c4||false;
+  c5.checked=saved.c5||false;
+
+  sleep.checked=saved.sleep||false;
+  move.checked=saved.move||false;
+  skin.checked=saved.skin||false;
+
+  if(saved.mood){
+    document.querySelectorAll(".mood-item").forEach(i=>{
+      if(i.dataset.mood===saved.mood){
+        i.classList.add("selected");
+        selectedMood=saved.mood;
+      }
+    });
+  }
+}
+
+/* save */
+function saveDay(){
+  const data={
+    t1:t1.value, t2:t2.value, t3:t3.value, t4:t4.value, t5:t5.value,
+    easy:easy.value,
+    goal:goal.value, today:today.value,
+    stress:stress.value,
+    grateful:grateful.value, proud:proud.value,
+    c1:c1.checked, c2:c2.checked, c3:c3.checked, c4:c4.checked, c5:c5.checked,
+    sleep:sleep.checked, move:move.checked, skin:skin.checked,
+    mood:selectedMood
+  };
+  localStorage.setItem(dayKey, JSON.stringify(data));
+  history.back();
+}
+</script>
+
+</body>
+</html>

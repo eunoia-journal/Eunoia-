@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vision Board</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f6f1;
+      color: #2f3e2f;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 30px;
+    }
+
+    h1 { font-weight: 500; }
+    p { color: #5f6f5f; }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+      background: #ffffff;
+      padding: 18px;
+      border-radius: 20px;
+    }
+
+    select, input[type="color"], textarea {
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #d8dfd3;
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    textarea {
+      flex: 1;
+      resize: none;
+      min-height: 60px;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      padding: 20px;
+      background: #ffffff;
+      border-radius: 24px;
+      margin-bottom: 30px;
+    }
+
+    .slot {
+      height: 160px;
+      background: #eef2ec;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .slot span { color: #6b7a6b; font-size: 13px; }
+    .slot img { width: 100%; height: 100%; object-fit: cover; }
+    input[type="file"] { display: none; }
+
+    button {
+      background: #8fa98f;
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 22px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .board { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Your Vision Board</h1>
+  <p>Add or update images that reflect how you want life to feel.</p>
+
+  <div class="controls">
+    <select id="layout">
+      <option value="4">Classic</option>
+      <option value="3">Balanced</option>
+      <option value="2">Minimal</option>
+    </select>
+
+    <input type="color" id="bgColor" value="#ffffff">
+    <textarea id="note" placeholder="A gentle reminder for yourself…"></textarea>
+  </div>
+
+  <div id="board" class="board"></div>
+
+  <button id="saveBtn">Save & Continue</button>
+</div>
+
+<script>
+  if (localStorage.getItem("hasCompletedFutureEntry") !== "true") {
+    window.location.href = "future-entry.html";
+  }
+
+  const board = document.getElementById("board");
+  const layoutSelect = document.getElementById("layout");
+  const bgColorInput = document.getElementById("bgColor");
+  const noteInput = document.getElementById("note");
+
+  let images = new Array(8).fill(null);
+
+  function buildBoard() {
+    board.innerHTML = "";
+    for (let i = 0; i < 8; i++) {
+      const label = document.createElement("label");
+      label.className = "slot";
+
+      const span = document.createElement("span");
+      span.textContent = "Add image";
+
+      const img = document.createElement("img");
+      const input = document.createElement("input");
+      input.type = "file";
+      input.accept = "image/*";
+
+      input.onchange = () => {
+        const file = input.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          images[i] = reader.result;
+          img.src = reader.result;
+          span.remove();
+          label.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      };
+
+      if (images[i]) {
+        img.src = images[i];
+        label.appendChild(img);
+      } else {
+        label.appendChild(span);
+      }
+
+      label.appendChild(input);
+      board.appendChild(label);
+    }
+  }
+
+  const saved = JSON.parse(localStorage.getItem("visionBoardData"));
+  if (saved) {
+    images = saved.images || images;
+    noteInput.value = saved.note || "";
+    bgColorInput.value = saved.background || "#ffffff";
+    board.style.backgroundColor = bgColorInput.value;
+    layoutSelect.value = saved.layout || 4;
+    board.style.gridTemplateColumns = `repeat(${layoutSelect.value}, 1fr)`;
+  }
+
+  buildBoard();
+
+  layoutSelect.onchange = () => {
+    board.style.gridTemplateColumns = `repeat(${layoutSelect.value}, 1fr)`;
+  };
+
+  bgColorInput.oninput = () => {
+    board.style.backgroundColor = bgColorInput.value;
+  };
+
+  document.getElementById("saveBtn").onclick = () => {
+    localStorage.setItem("visionBoardData", JSON.stringify({
+      images,
+      layout: layoutSelect.value,
+      background: bgColorInput.value,
+      note: noteInput.value
+    }));
+    window.location.href = "vision-final.html";
+  };
+</script>
+
+</body>
+</html>

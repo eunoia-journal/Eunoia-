@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gentle Journal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- ORGANIC BACKGROUND -->
+<div class="bg">
+  <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+    <path d="M0,150 C200,300 400,100 650,220 C900,350 1100,150 1440,260 L1440,0 L0,0 Z"
+          fill="#E6EEDB"/>
+    <path d="M0,750 C300,600 600,850 900,720 C1200,600 1350,780 1440,720 L1440,900 L0,900 Z"
+          fill="#C9DDB6"/>
+  </svg>
+</div>
+
+
+  <div class="app-container">
+
+    <div class="progress">
+      <span class="step active"></span>
+      <span class="step"></span>
+      <span class="step"></span>
+    </div>
+
+    <h1>Let’s start with you</h1>
+    <p class="subtitle">Step 1 of 3</p>
+
+    <form class="form">
+
+      <div class="field-box">
+        <label>What would you like me to call you?</label>
+        <input type="text" placeholder="Your name or nickname" required>
+      </div>
+
+      <div class="field-box">
+        <label>One word that describes you best</label>
+        <input type="text" placeholder="Calm, curious, hopeful..." required>
+      </div>
+
+      <a href="step2.html" class="btn-primary">Continue</a>
+
+    </form>
+
+  </div>
+  <script>
+  // If onboarding already completed, skip onboarding pages
+  if (localStorage.getItem("onboardingCompleted") === "true") {
+    window.location.href = "journalpage.html";
+  }
+</script>
+
+</body>
+</html>
+

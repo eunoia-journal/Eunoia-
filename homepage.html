@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eunoia – A Gentle Journal</title>
+
+  <!-- GOOGLE FONTS -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:wght@500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== RESET ===== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #FBF3EA;
+      color: #1f2a44;
+      overflow-x: hidden;
+    }
+
+    /* ===== ORGANIC SVG BACKGROUND ===== */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+    }
+
+    .bg svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      padding: 24px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      font-family: 'Dancing Script', cursive;
+      font-size: 52px;
+    }
+
+    nav a {
+      margin-left: 28px;
+      text-decoration: none;
+      font-family: 'Dancing Script', cursive;
+      font-size: 20px;
+      color: #1f2a44;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      text-align: center;
+      padding: 90px 20px 60px;
+    }
+
+    .hero h1 {
+      font-family: 'Dancing Script';
+      font-size: 64px;
+      margin-bottom: 40px;
+    }
+
+    .welcome {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(47, 93, 80, 0.92);
+      color: #ffffff;
+      padding: 45px 55px;
+      border-radius: 40px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 26px;
+      line-height: 1.6;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+    }
+    
+    
+
+    /* ===== ACTION CARDS ===== */
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 80px 20px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: #D6E5C6;
+      width: 280px;
+      padding: 35px 25px;
+      border-radius: 35px;
+      text-align: center;
+      font-family: 'Dancing Script', cursive;
+      font-size: 38px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 50px 20px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .welcome {
+        font-size: 20px;
+        padding: 25px;
+      }
+      .affirmation {
+  max-width: 700px;
+  margin: 40px auto 10px;
+  padding: 20px 30px;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: #2F5D50;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 30px;
+  box-shadow: 0 10px 25px rgba(47, 93, 80, 0.15);
+}
+
+
+      .card {
+        width: 100%;
+        max-width: 320px;
+        font-size: 32px;
+      }
+    }
+    /* ===== DAILY AFFIRMATION (HOMEPAGE FIX) ===== */
+#dailyAffirmation {
+  max-width: 520px;
+  margin: -30px auto 50px;
+  padding: 22px 28px;
+
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  line-height: 1.5;
+
+  color: #1f2a44;
+  background: #ffffff;
+
+  border-radius: 22px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ORGANIC BACKGROUND -->
+  <div class="bg">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <path d="M0,150 C200,300 400,100 650,220 C900,350 1100,150 1440,260 L1440,0 L0,0 Z"
+            fill="#E6EEDB"/>
+      <path d="M0,750 C300,600 600,850 900,720 C1200,600 1350,780 1440,720 L1440,900 L0,900 Z"
+            fill="#C9DDB6"/>
+    </svg>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="brand">Eunoia</div>
+    <nav>
+      <a href="Enioua.html">My Journal</a>
+      <a href="past.html">My Memories</a>
+      <a href="calandar.html">Plan My Day</a>
+      
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Capture today. Reflect tomorrow.</h1>
+
+    <div class="welcome">
+      Welcome to your personal space to record thoughts, emotions, and moments.
+      This is not productivity. This is presence.
+    </div>
+  </section>
+   
+  <!-- DAILY AFFIRMATION -->
+     <div class="affirmation" id="dailyAffirmation"></div>
+
+  <!-- ACTION CARDS -->
+  <section class="actions">
+    <div class="card" onclick="location.href='Enioua.html'">Write your thoughts</div>
+    <div class="card" onclick="location.href='past.html'">Revisit memories</div>
+    <div class="card" onclick="location.href='calandar.html'">Plan Your Day</div>
+    <div class="card" onclick="openVision()"> Vision Board</div>
+    <div class="card" onclick="location.href='pomodoro.html'">Pomodoro</div>
+
+  </section>
+  
+  <!-- FOOTER -->
+  <footer>
+    © 2025 Eunoia · A gentle space to pause and reflect
+    <script>
+  function openVision() {
+    // If vision already created, go to final view
+    if (localStorage.getItem("visionBoardData")) {
+      window.location.href = "vision-final.html";
+    } 
+    // Else start the future entry flow
+    else {
+      window.location.href = "future-entry.html";
+    }
+  }
+</script>
+
+  </footer>
+     <script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gentle Journal</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:wght@500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#FBF3EA;
+  --accent:#2F5D50;
+  --card:#ffffff;
+}
+
+/* RESET */
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  overflow-x:hidden;
+}
+
+/* ORGANIC BACKGROUND */
+.bg{position:fixed;inset:0;z-index:-1}
+.bg svg{width:100%;height:100%}
+
+/* NOTEBOOK */
+.notebook{position:relative;height:100vh;overflow:hidden}
+.page{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .9s ease;
+}
+.write{z-index:2}
+.reflect{transform:translateX(100%);z-index:1}
+.write.slide-out{transform:translateX(-100%)}
+.reflect.slide-in{transform:translateX(0)}
+
+/* CARD */
+.box{
+  width:100%;max-width:900px;
+  background:var(--card);
+  padding:35px;
+  border-radius:30px;
+  box-shadow:0 20px 40px rgba(0,0,0,.12);
+}
+
+/* HEADINGS */
+h2{
+  font-family:'Dancing Script',cursive;
+  font-size:38px;
+  text-align:center;
+  margin-bottom:15px;
+}
+
+/* TEXTAREA */
+textarea{
+  width:100%;min-height:220px;
+  padding:18px;
+  border-radius:18px;
+  border:1px solid #ccc;
+  font-size:16px;
+  resize:vertical;
+}
+
+/* IMAGE */
+.note{font-size:14px;color:#666;margin-top:10px}
+#imagePreview{
+  display:none;width:90px;height:90px;
+  object-fit:cover;border-radius:14px;margin-top:12px
+}
+
+/* BUTTON */
+.btn{
+  margin:25px auto 0;
+  display:block;
+  padding:14px 36px;
+  border-radius:30px;
+  border:none;
+  background:var(--accent);
+  color:#fff;
+  font-size:18px;
+  cursor:pointer;
+}
+
+/* REFLECTION INPUT */
+.reflection{
+  width:100%;
+  padding:14px;
+  border-radius:14px;
+  border:1px solid #ccc;
+  margin:8px 0 18px;
+}
+
+/* THEME PICKER */
+.themes{
+  display:flex;gap:10px;justify-content:center;margin-bottom:15px
+}
+.theme{
+  width:28px;height:28px;border-radius:50%;
+  cursor:pointer;border:2px solid #fff;
+  box-shadow:0 0 0 1px #ccc
+}
+.green{background:#2F5D50}
+.pink{background:#C97B84}
+.lavender{background:#7A77A8}
+.sand{background:#C9B28C}
+
+/* MOBILE */
+@media(max-width:600px){
+  h2{font-size:28px}
+  textarea{min-height:180px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+<div class="bg">
+<svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+  <path d="M0,150 C300,300 500,100 800,220 C1100,350 1300,150 1440,260 L1440,0 L0,0 Z" fill="#E6EEDB"/>
+  <path d="M0,760 C350,620 700,840 1000,720 C1250,620 1400,780 1440,720 L1440,900 L0,900 Z" fill="#C9DDB6"/>
+</svg>
+</div>
+
+<div class="notebook">
+
+<!-- WRITE PAGE -->
+<section class="page write" id="writePage">
+<div class="box">
+
+<h2>Thoughts in my head</h2>
+
+<div class="themes">
+  <div class="theme green" onclick="setTheme('#FBF3EA','#2F5D50')"></div>
+  <div class="theme pink" onclick="setTheme('#FFF1F3','#C97B84')"></div>
+  <div class="theme lavender" onclick="setTheme('#F2F1FA','#7A77A8')"></div>
+  <div class="theme sand" onclick="setTheme('#FFF7EB','#C9B28C')"></div>
+</div>
+
+<textarea id="journalText" placeholder="Write freely… nothing needs to be perfect."></textarea>
+
+<div class="note">You can add an image if you want.</div>
+<input type="file" id="imageUpload" accept="image/*">
+<img id="imagePreview">
+
+<button class="btn" onclick="goNext()">Continue</button>
+</div>
+</section>
+
+<!-- REFLECTION PAGE -->
+<section class="page reflect" id="reflectPage">
+<div class="box">
+
+<h2>A gentle pause</h2>
+
+<label>How did today make you feel overall?</label>
+<input class="reflection" id="q1">
+
+<label>Was there a moment today that stayed with you?</label>
+<input class="reflection" id="q2">
+
+<label>Is there anything you want to let go of before tomorrow?</label>
+<input class="reflection" id="q3">
+
+<button class="btn" onclick="saveEntry()">Save & Close</button>
+</div>
+</section>
+
+</div>
+
+<script>
+let imageData="";
+
+/* THEME */
+function setTheme(bg,accent){
+  document.documentElement.style.setProperty('--bg',bg);
+  document.documentElement.style.setProperty('--accent',accent);
+}
+
+/* IMAGE */
+imageUpload.onchange=e=>{
+  const f=e.target.files[0];
+  if(!f||f.size>3*1024*1024){alert("Image under 3MB please 🌿");return;}
+  const r=new FileReader();
+  r.onload=()=>{imageData=r.result;imagePreview.src=imageData;imagePreview.style.display="block";}
+  r.readAsDataURL(f);
+}
+
+/* SLIDE */
+function goNext(){
+  writePage.classList.add("slide-out");
+  reflectPage.classList.add("slide-in");
+}
+
+/* SAVE */
+function saveEntry(){
+  const entry={
+    date:new Date().toLocaleString(),
+    text:journalText.value,
+    reflections:{feel:q1.value,moment:q2.value,release:q3.value},
+    image:imageData,
+    theme:getComputedStyle(document.documentElement).getPropertyValue('--accent')
+  };
+  const all=JSON.parse(localStorage.getItem("journalEntries"))||[];
+  all.push(entry);
+  localStorage.setItem("journalEntries",JSON.stringify(all));
+  location.href="past.html";
+}
+</script>
+
+</body>
+</html>

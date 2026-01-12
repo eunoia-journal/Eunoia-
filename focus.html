@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Focus</title>
+
+  <link rel="stylesheet" href="app.css">
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+</head>
+
+<body class="focus">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="logo">Pomodoro</div>
+    <div class="top-actions">
+      <button class="invite-btn" onclick="invite()">Invite</button>
+      <button class="report-btn" onclick="goReport()">Report</button>
+    </div>
+  </header>
+
+  <!-- MAIN CARD -->
+  <main class="focus-card">
+    <div class="focus-wrapper">
+
+      <!-- MODE TABS -->
+      <div class="mode-tabs">
+        <button id="focusTab" class="tab active" onclick="switchMode('focus')">Focus</button>
+        <button id="breakTab" class="tab" onclick="switchMode('break')">Break</button>
+      </div>
+
+      <!-- TIMER -->
+      <div class="timer-box">
+        <button class="adjust" onclick="adjustTime(-5)">−</button>
+        <div class="timer" id="timerDisplay">25:00</div>
+        <button class="adjust" onclick="adjustTime(5)">+</button>
+      </div>
+
+      <!-- CONTROLS -->
+      <div class="controls">
+        <button class="primary" onclick="startTimer()">Start</button>
+        <button class="secondary" onclick="stopTimer()">Stop</button>
+      </div>
+
+      <!-- SOUND -->
+      <button class="sound-btn" onclick="openSound()">🔊 Sound</button>
+
+      <div class="sound-dialog" id="soundDialog">
+        <h4>Focus Sound</h4>
+        <select id="soundSelect">
+          <option value="none">None</option>
+          <option value="rain">Rain</option>
+          <option value="piano">Piano</option>
+          <option value="meditate">Meditate</option>
+          <option value="deepfocus">Deep Focus</option>
+          <option value="instrumental">Instrumental</option>
+        </select>
+        <button onclick="closeSound()">Done</button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- CHAT (SKETCH STYLE) -->
+  <div class="chat-box">
+    <div class="chat-header">
+      <span>CHAT HERE</span>
+      <div class="chat-users" id="chatUsers"></div>
+    </div>
+
+    <div class="chat-messages" id="chatMessages"></div>
+
+    <div class="chat-input">
+      <input
+        type="text"
+        id="chatInput"
+        placeholder="Type here..."
+        onkeydown="if(event.key==='Enter') sendMessage()"
+      />
+      <button onclick="sendMessage()">➤</button>
+    </div>
+  </div>
+
+  <!-- LOAD JS LAST -->
+  <script src="app.js"></script>
+
+</body>
+</html>

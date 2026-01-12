@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Past History</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="app-container">
+<h1>Past Journal Entries</h1>
+<div id="history"></div>
+
+<div style="margin-top:30px;text-align:center;">
+  <a href="homepage.html" class="btn-secondary"> Home</a>
+  <a href="journalpage.html" class="btn-primary"> New Entry</a>
+</div>
+</div>
+
+<script>
+const historyDiv = document.getElementById("history");
+let entries = JSON.parse(localStorage.getItem("journalEntries")) || [];
+
+if(entries.length===0){
+  historyDiv.innerHTML="<p>No entries yet.</p>";
+}
+
+entries.forEach((e,i)=>{
+  historyDiv.innerHTML += `
+  <div class="field-box">
+    <strong>${e.date} – ${e.time}</strong><br>
+    ${e.sticker ? `<div style="font-size:28px">${e.sticker}</div>`:""}
+    ${e.image ? `<img src="${e.image}" style="max-width:100%;border-radius:10px">`:""}
+    <p>${e.journalText}</p>
+    <button onclick="editEntry(${i})">Edit</button>
+    <button onclick="deleteEntry(${i})">Delete</button>
+  </div>`;
+});
+
+function editEntry(i){
+  localStorage.setItem("editIndex", i);
+  window.location.href="journalpage.html";
+}
+
+function deleteEntry(i){
+  if(confirm("Delete this entry?")){
+    entries.splice(i,1);
+    localStorage.setItem("journalEntries",JSON.stringify(entries));
+    location.reload();
+  }
+}
+</script>
+</body>
+</html>
